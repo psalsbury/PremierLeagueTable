@@ -1,0 +1,48 @@
+﻿@model List<TechnicalTest.Models.LeagueTableTeam>
+
+<h2>@ViewBag.Title</h2>
+
+
+@if (Model == null)
+{
+    <h2>No table to show</h2>
+}
+else
+{
+    <table id="teamResultsTable" name="teamResultsTable" class="table table-striped">
+        <thead>
+        <tr>
+            <td><b>Posn</b></td>
+            <td><b>Team</b></td>
+            <td style="text-align: center"><b>GS</b></td>
+            <td style="text-align: center"><b>GC</b></td>
+            <td style="text-align: center"><b>GD</b></td>
+            <td style="text-align: center"><b>Points</b></td>
+        </tr>
+        </thead>
+
+        @foreach (var leagueTableTeam in Model)
+        {
+            <tr>
+                <td>
+                    @leagueTableTeam.LeaguePosition
+                </td>
+                <td>
+                    @Html.ActionLink(leagueTableTeam.TeamName, "DisplayTeamResults", "TeamResults", new {teamName = leagueTableTeam.TeamName }, null)
+                </td>
+                <td style="text-align: center">
+                    @leagueTableTeam.GoalsFor
+                </td>
+                <td style="text-align: center">
+                    @leagueTableTeam.GoalsAgainst
+                </td>
+                <td style="text-align: center">
+                    @leagueTableTeam.GoalDifference
+                </td>
+                <td style="text-align: center">
+                    @leagueTableTeam.Points
+                </td>
+            </tr>
+        }
+    </table>
+}

@@ -1,0 +1,96 @@
+﻿@model TechnicalTest.ViewModels.TeamResultsViewModel
+@{
+    ViewBag.Title = @Model.TeamName + " Results";
+}
+
+@if (Model?.TeamResults == null)
+{
+    <h2>No results to show</h2>
+}
+else
+{
+    <h2>@Model.TeamName Results</h2><br />
+    <a href="/Table/Table">
+        <input type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#myModal" value="Back to table">
+    </a>
+    <input type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" value="Colour Key">
+    <br/><br/>
+
+    <table id="teamResultsTable" name="teamResultsTable" class="table table-striped">
+        <thead>
+        <tr>
+            <td width="20%">Fixture Date</td>
+            <td cellspan="4" style="text-align: center">&nbsp;</td>
+        </tr>
+        </thead>
+        @foreach (var result in Model.TeamResults)
+        {
+            var gamePoints = 0;
+            gamePoints = Model.TeamName == result.HomeTeam ? result.HomePoints : result.AwayPoints;
+
+            var rowClass = gamePoints == 3 ? "success" : (gamePoints == 1 ? "warning" : "danger");
+
+            <tr class="@rowClass">
+                <td width="20%">
+                    @(result.FixtureDate + " " + result.FixtureTime)
+                </td>
+                <td width="30%" style="text-align: right">
+                    @result.HomeTeam
+                </td>
+                <td width="10%" style="text-align: center">
+                    <b>@result.FullTimeHomeGoals</b>
+                </td>
+                <td width="10%" style="text-align: center">
+                    <b>@result.FullTimeAwayGoals</b>
+                </td>
+                <td width="30%" style="text-align: left">
+                    @result.AwayTeam
+                </td>
+
+            </tr>
+        }
+    </table>
+}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">What the colours mean</h4>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <td class="success" width="20">
+                            &nbsp
+                        </td>
+                        <td>
+                            &nbsp&nbsp Match Won
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="warning">
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp&nbsp Match Drawn
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="danger">
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp&nbsp Match Lost
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
