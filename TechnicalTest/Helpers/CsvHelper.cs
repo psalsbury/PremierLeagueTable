@@ -12,26 +12,22 @@ namespace TechnicalTest.Helpers
 {
     public class CsvHelper
     {
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
         public List<Result> UploadCsvFile(HttpPostedFileBase postedFileBase)
         {
-            try
-            {
-                using (var reader = new StreamReader(postedFileBase.InputStream))
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-                {
-                    csv.Context.RegisterClassMap<ResultsMap>();
-                    var results =  csv.GetRecords<Models.Result>();
-                    return results.ToList();
-                }
 
-            }
-            catch (Exception e)
+            Logger.Info($"CsvHelper.UploadCsvFile method called");
+
+            using (var reader = new StreamReader(postedFileBase.InputStream))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
-                throw;
+                csv.Context.RegisterClassMap<ResultsMap>();
+                var results =  csv.GetRecords<Models.Result>();
+                return results.ToList();
             }
         }
     }
-
     public sealed class ResultsMap : ClassMap<Models.Result>
     {
         public  ResultsMap()

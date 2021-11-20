@@ -17,6 +17,8 @@ namespace TechnicalTest.Controllers
         // GET: Import
         public ActionResult ImportResults()
         {
+            Logger.Info($"ImportController.ImportResults method called");
+
             var importResultsViewModel = new ImportResultsViewModel();
             return View(importResultsViewModel);
         }
@@ -26,7 +28,7 @@ namespace TechnicalTest.Controllers
         {
             try
             {
-                Logger.Info($"Import results post started");
+                Logger.Info($"ImportController.ImportResults POST method called");
 
                 if (model.File != null && model.File.ContentLength > 0)
                 {
@@ -48,7 +50,7 @@ namespace TechnicalTest.Controllers
             }
             catch (Exception e)
             {
-                Logger.Error($"Import failed. Error message is as follows --> {e.Message}");
+                Logger.Error($"Import failed in method ImportController.ImportResults --> {e.Message}");
                 model.Response = FailResponse("Unable to import file, please check the format and retry");
             }
             return View(model);

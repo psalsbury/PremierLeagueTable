@@ -1,10 +1,35 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@using TechnicalTest.Models
+@{
+    ViewBag.Title = "Pete Salsbury Technical Test";
 
-<div class="jumbotron">
-    <h1>Pete Salsbury Technical Test</h1>
+    var boxColour = "red";
+    var resultsImported = 0;
+    if (Session["results"] != null)
+    {
+        boxColour = "green";
+        resultsImported = ((List<Result>) Session["results"]).Count;
+    }
+}
+<div class="row">
+<div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-@boxColour">
+        <div class="inner">
+            <h3>
+                @resultsImported
+            </h3>
+            <p>results imported</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-ios-football-outline"></i>
+        </div>
+        <a href="~/Import/ImportResults" class="small-box-footer">
+            Import them here <i class="fa fa-arrow-circle-right"></i>
+        </a>
+    </div>
 </div>
+    </div>
+
 
 <div class="row">
     <div class="col-md-4">
@@ -12,7 +37,7 @@
             Getting started
         </h2>
         <p>
-            To upload the results file, please navigate to 'Results File' from the Nav Bar at the top of the screen.
+            To upload the results file, please navigate to 'Import Results' from the menu or from the info box above
         </p>
     </div>
     <div class="col-md-4">
@@ -21,7 +46,7 @@
         </h2>
         <p>
             Once the results have been uploaded you can view the resulting Premier League table by clicking on 'League Table'
-        </p> 
+        </p>
     </div>
     <div class="col-md-4">
         <h2>
@@ -32,3 +57,4 @@
         </p>
     </div>
 </div>
+

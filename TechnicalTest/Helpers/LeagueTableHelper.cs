@@ -8,9 +8,11 @@ namespace TechnicalTest.Helpers
 {
     public static class LeagueTableHelper
     {
-
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         public static List<LeagueTableTeam> ReturnLeagueTable(List<Result> results)
         {
+
+            Logger.Info($"LeagueTableHelper.ReturnLeagueTable method called");
 
             if (results == null)
                 return null;
@@ -23,7 +25,6 @@ namespace TechnicalTest.Helpers
                 var awayLeagueTableTeam = leagueTableTeams.FirstOrDefault(t => t.TeamName == result.AwayTeam);
 
                 UpdateLeagueTableTeam(homeLeagueTableTeam, awayLeagueTableTeam, result);
-
             }
 
             leagueTableTeams = leagueTableTeams.OrderByDescending(c => c.Points)
@@ -61,21 +62,30 @@ namespace TechnicalTest.Helpers
             }
 
             return leagueTableTeams.OrderBy(p => p.LeaguePosition).ToList();
+
         }
 
         private static List<LeagueTableTeam> GetStartingLeagueTable(List<Result> results)
         {
-            var leagueTableTeams = new List<LeagueTableTeam>();
-
-            // Get a distinct list of all the teams, combining home and away teams
-            var teamNames = results.Select(t => t.HomeTeam).Distinct().Union(results.Select(t => t.AwayTeam).Distinct());
-
-            foreach (var teamName in teamNames)
+            try
             {
-                leagueTableTeams.Add(new LeagueTableTeam(teamName));
-            }
+                var leagueTableTeams = new List<LeagueTableTeam>();
 
-            return leagueTableTeams;
+                // Get a distinct list of all the teams, combining home and away teams
+                var teamNames = results.Select(t => t.HomeTeam).Distinct().Union(results.Select(t => t.AwayTeam).Distinct());
+
+                foreach (var teamName in teamNames)
+                {
+                    leagueTableTeams.Add(new LeagueTableTeam(teamName));
+                }
+
+                return leagueTableTeams;
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Error logged in method GetStartingLeagueTable --> {e.Message}");
+                throw;
+            }
         }
 
         private static void UpdateLeagueTableTeam(LeagueTableTeam leagueTableTeamHome, LeagueTableTeam leagueTableTeamAway, Result result)
@@ -100,8 +110,6 @@ namespace TechnicalTest.Helpers
 
             leagueTableTeamAway.GoalsFor += result.FullTimeAwayGoals;
             leagueTableTeamAway.GoalsAgainst += result.FullTimeHomeGoals;
-
         }
-
     }
 }
