@@ -39,21 +39,6 @@ namespace Test
             Assert.AreEqual(leagueTableTeamDerby.LeaguePosition, 2, "Derby League Position is not 2");
             Assert.AreEqual(leagueTableTeamManUtd.LeaguePosition, 2, "Man Utd League Position is not 2");
         }
-
-        [TestMethod]
-        public void CheckResultsAreCorrect()
-        {
-            // Verify that Forest are top, and that ManUtd and Derby are joint second
-
-            var results = new List<Result>
-            {
-                new Result() { HomeTeam = "Forest", AwayTeam = "ManUtd", FullTimeHomeGoals = 1, FullTimeAwayGoals = 0 },
-                new Result() { HomeTeam = "Derby", AwayTeam = "ManUtd", FullTimeHomeGoals = 1, FullTimeAwayGoals = 1 },
-                new Result() { HomeTeam = "Derby", AwayTeam = "Forest", FullTimeHomeGoals = 0, FullTimeAwayGoals = 1 }
-            };
-
-        }
-
     }
 
 }
