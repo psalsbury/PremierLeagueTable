@@ -212,4 +212,3 @@ C:\Users\pete\source\repos\ManUtd\PremierLeagueTable\TechnicalTest\bin\WebMatrix
 C:\Users\pete\source\repos\ManUtd\PremierLeagueTable\TechnicalTest\bin\WebMatrix.WebData.xml
 C:\Users\pete\source\repos\ManUtd\PremierLeagueTable\TechnicalTest\bin\WebHelpers.Mvc5.dll
 C:\Users\pete\source\repos\ManUtd\PremierLeagueTable\TechnicalTest\bin\WebHelpers.Mvc5.xml
-C:\Users\pete\source\repos\ManUtd\PremierLeagueTable\TechnicalTest\obj\Debug\TechnicalTest.csprojAssemblyReference.cache
